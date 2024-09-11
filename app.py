@@ -7,7 +7,7 @@ import time
 
 
 # Load the dataset to get the encoder and labels
-file_path = 'C:\\Users\\VASISH1211\\Desktop\\DataQuest\\insurance_data.csv'
+file_path = 'insurance_data.csv'
 insurance_data = pd.read_csv(file_path)
 
 # Encode categorical variables
