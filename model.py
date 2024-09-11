@@ -8,7 +8,7 @@ import seaborn as sns
 import numpy as np
 
 # Load the dataset
-file_path = 'C:\\Users\\VASISH1211\\Desktop\\DataQuest\\insurance_data.csv'
+file_path = 'insurance_data.csv'
  # Replace with actual path
 insurance_data = pd.read_csv(file_path)
 
