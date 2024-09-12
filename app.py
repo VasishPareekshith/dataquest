@@ -6,6 +6,7 @@ import time
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 # Load the dataset to get the encoder and labels
 file_path = 'insurance_data.csv'
 insurance_data = pd.read_csv(file_path)
@@ -92,6 +93,7 @@ if st.session_state.show_correlation:
     plt = plot_correlation_matrix(insurance_data)
     st.pyplot(plt)
 
+
 # Convert categorical inputs to numerical values
 gender_encoded = gender_mapping[gender]
 diabetic_encoded = diabetic_mapping[diabetic]
@@ -115,3 +117,4 @@ input_df = pd.DataFrame([input_data])
 # Make prediction
 prediction = xgb_model.predict(input_df)
 st.write(f"Predicted Insurance Claim: ${prediction[0]:.2f}")
+
