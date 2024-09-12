@@ -92,6 +92,19 @@ if st.session_state.show_correlation:
     st.write("### Feature Correlation Matrix")
     plt = plot_correlation_matrix(insurance_data)
     st.pyplot(plt)
+    st.write("### Feature Importance from XGBoost Model")
+    # Plot feature importance
+    fig, ax = plt.subplots(figsize=(10, 8))
+    xgb.plot_importance(xgb_model, importance_type='cover', ax=ax, title='Feature Importance')
+    st.pyplot(fig)
+
+
+
+
+
+
+
+
 
 
 # Convert categorical inputs to numerical values
@@ -117,4 +130,3 @@ input_df = pd.DataFrame([input_data])
 # Make prediction
 prediction = xgb_model.predict(input_df)
 st.write(f"Predicted Insurance Claim: ${prediction[0]:.2f}")
-
