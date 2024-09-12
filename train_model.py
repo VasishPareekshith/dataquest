@@ -1,7 +1,7 @@
 import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder,StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 import numpy as np
 
@@ -28,6 +28,11 @@ y = insurance_data['claim']
 # Split into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+std_scaler=StandardScaler()
+X['age'] = std_scaler.fit_transform(np.array(X['age']).reshape(-1,1))
+X['bmi'] = std_scaler.fit_transform(np.array(X['bmi']).reshape(-1,1))
+X['children'] = std_scaler.fit_transform(np.array(X['children']).reshape(-1,1))
+
 # Train XGBoost model
 xgb_model = xgb.XGBRegressor(objective='reg:squarederror', n_estimators=150, learning_rate=0.07)
 xgb_model.fit(X_train, y_train)
@@ -37,19 +42,22 @@ xgb_model.save_model('model.json')
 
 # Predictions
 y_pred = xgb_model.predict(X_test)
+y_tpred = xgb_model.predict(X_train)
 
 # Evaluation Metrics
 mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
 r2 = r2_score(y_test, y_pred)
+xr2=  r2_score(y_train, y_tpred)
 mae = mean_absolute_error(y_test, y_pred)
 
 # Print evaluation results
 metrics = {
     'Mean Squared Error': mse,
     'Root Mean Squared Error': rmse,
-    'R2 Score': r2,
-    'Mean Absolute Error': mae
+    'Mean Absolute Error': mae,
+    'Test R2 Score': r2,
+    'Train R2 Score' :xr2
 }
 
 print("Model Evaluation Metrics:")
