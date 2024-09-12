@@ -36,7 +36,7 @@ col1, col2 = st.columns(2)
 with col1:
     age = st.number_input('Age', min_value=18, max_value=60, value=18)
     gender = st.selectbox('Gender', options=['male', 'female'])
-    bmi = st.number_input('BMI', min_value=16, max_value=53.1, value=16)
+    bmi = st.number_input('BMI', min_value=16.0, max_value=53.1, value=16)
     bloodpressure = st.number_input('Blood Pressure', min_value=80, max_value=140, value=80)
 
 # Second column: 4 input fields
